@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/StudyHub.iml" filepath="$PROJECT_DIR$/.idea/StudyHub.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudyHub/StudyHub.iml" filepath="$PROJECT_DIR$/StudyHub/StudyHub.iml" />
     </modules>
   </component>
 </project>

@@ -1,5 +1,6 @@
 package com.rajeev.StudyHub.Payload;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -8,8 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -29,9 +28,6 @@ public class UserDTO {
     @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
 
-    private boolean isBanned = false;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")  // Format date as string
     private LocalDateTime createdAt = LocalDateTime.now();
-
-    private List<RoleDTO> roles = new ArrayList<>();
 }

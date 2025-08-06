@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public interface UserService {
-     UserDTO RegisterNewUser(UserDTO userDTO);
+     UserDTO registerNewUser(UserDTO userDTO);
 
      UserDTO createUser(UserDTO userDTO);
 
