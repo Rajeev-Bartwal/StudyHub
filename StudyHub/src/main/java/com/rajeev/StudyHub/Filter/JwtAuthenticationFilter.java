@@ -38,7 +38,7 @@ public  class JwtAuthenticationFilter extends OncePerRequestFilter {
         String username = null;
 
         //Get token....
-        if(authHeader != null && authHeader.startsWith("Bearer")) {
+        if(authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
             try {
                 username = jwtService.getUserName(token);
@@ -52,18 +52,22 @@ public  class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
 //        //Authenticate or Validate the Token
-        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
-
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            System.out.println("JwtAuthFilter triggered for: " + request.getServletPath());
             UserDetails userDetails = context.getBean(CustomUserDetailService.class).loadUserByUsername(username);
+            System.out.println("Loaded user: " + userDetails);
 
-            if(jwtService.validateToken(token , userDetails)){
+            if (jwtService.validateToken(token, userDetails)) {
+                System.out.println("Token is valid, setting authentication");
                 UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(userDetails , null , userDetails.getAuthorities());
-
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+            } else {
+                System.out.println("Token validation failed");
             }
         }
+
 
         filterChain.doFilter(request,response);
     }

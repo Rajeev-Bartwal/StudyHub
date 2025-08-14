@@ -4,6 +4,8 @@ import com.rajeev.StudyHub.Payload.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,12 +37,18 @@ public class GlobalExceptionHandler {
             return  new ResponseEntity<>(resp , HttpStatus.BAD_REQUEST);
         }
 
-//        @ExceptionHandler(BadCredentialsException.class)
-//        public ResponseEntity<ApiResponse> badCredentialException(BadCredentialsException ex){
-//            String message = " Invalid Username and Password";
-//
-//            return new ResponseEntity<>(new ApiResponse(message , false),HttpStatus.UNAUTHORIZED);
-//        }
+        @ExceptionHandler(BadCredentialsException.class)
+        public ResponseEntity<ApiResponse> badCredentialException(BadCredentialsException ex){
+            String message = " Invalid Username and Password";
+
+            return new ResponseEntity<>(new ApiResponse(message , false),HttpStatus.UNAUTHORIZED);
+        }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiResponse> handleAccessDeniedException(AccessDeniedException ex) {
+         String message = ex.getMessage();
+         return new ResponseEntity<>(new ApiResponse( message, false), HttpStatus.NOT_FOUND);
+    }
 
 }
 

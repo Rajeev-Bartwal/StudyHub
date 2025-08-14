@@ -28,7 +28,7 @@ public class User implements UserDetails {
     @NotBlank(message = "Username is required")
     @Size(min = 3, max = 20, message = "Username must be 3-20 characters")
     @Column(nullable = false, unique = true)
-    private String user_name;
+    private String name;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
@@ -58,6 +58,6 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return "";
+        return email;
     }
 }

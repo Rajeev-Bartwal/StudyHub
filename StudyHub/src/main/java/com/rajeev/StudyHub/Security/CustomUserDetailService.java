@@ -1,6 +1,7 @@
 package com.rajeev.StudyHub.Security;
 
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.rajeev.StudyHub.Models.User;
 import com.rajeev.StudyHub.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
         User user =  userRepo.findByEmail(username);
         if(user==null){
+            System.out.println(user.getUsername());
             System.out.println("user not found");
             throw new UsernameNotFoundException("user not found");
         }
